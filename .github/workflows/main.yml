@@ -110,15 +110,17 @@ jobs: 
       uses: actions/checkout@v4 
 
     - name: Verificar vazamentos de secrets 
-      run: | 
-         echo "Verificando se há secrets expostos no código..." 
-          if grep -r "password.*=" app/ --exclude-dir=.git; then 
-          echo "ATENÇÃO: Possível senha hardcoded encontrada!"  
-          exit 1  
-          fi          
+      run: |
+  echo "Verificando se há secrets expostos no código..."
 
-          if grep -r "api.*key.*=" app/ --exclude-dir=.git; then  
-          echo "ATENÇÃO: Possível API key hardcoded encontrada!" 
-          exit 1  
-          fi    
-         echo "Nenhum secret exposto encontrado!"
+  if grep -r "password.*=" app/ --exclude-dir=.git; then
+    echo "ATENÇÃO: Possível senha hardcoded encontrada!"
+    exit 1
+  fi
+
+  if grep -r "api.*key.*=" app/ --exclude-dir=.git; then
+    echo "ATENÇÃO: Possível API key hardcoded encontrada!"
+    exit 1
+  fi
+
+  echo "Nenhum secret exposto encontrado!"
